@@ -115,9 +115,7 @@ const bots = {
 				botsCounter = document.createElement('div')
 				rootTweet.appendChild(botsCounter)
 				botsCounter.addEventListener('click', () => {
-					let backUrl = chrome.runtime.getURL('./background.html')
-					window.open(backUrl, 'Bots', 'left=100, top=100, width=500,height=500, toolbar=no');
-					// this.showBotsList()
+					this.showBotsList()
 				})
 				botsCounter.innerHTML = '<div id="bots-section" class="css-1dbjc4n"><div class="css-1dbjc4n"><a dir="auto" role="link" class="css-4rbku5 css-18t94o4 css-901oao r-vlxjld r-1loqt21 r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-qvutc0"><div class="css-1dbjc4n r-xoduu5 r-1udh08x"><span data-testid="app-text-transition-container" style="transform: translate3d(0px, 0px, 0px); transition-property: transform; transition-duration: 0.3s;"><span class="css-901oao css-16my406 r-poiln3 r-1b43r93 r-b88u0q r-1cwl3u0 r-bcqeeo r-qvutc0"><span id="bots-counter" class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">'+this.botsCount+'</span></span></span></div> <span class="css-901oao css-16my406 r-115tad6 r-poiln3 r-1b43r93 r-1cwl3u0 r-bcqeeo r-qvutc0"><span class="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">Bots</span></span></a></div></div>'
 			}
