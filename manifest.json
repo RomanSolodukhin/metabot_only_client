@@ -1,0 +1,24 @@
+{
+   "author": "antibot4navalny",
+   "background": {
+      "service_worker": "background.js",
+      "type": "module"
+   },
+   "content_scripts": [ {
+      "js": [ "metabot.js" ],
+      "matches": [ "https://*.twitter.com/*" ],
+      "run_at": "document_idle"
+   } ],
+   "description": "Highlight known Kremlin bots on Twitter.",
+   "host_permissions": [ "https://api.github.com/" ],
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjpAxpPlc5nKiJKZEGFb9N+P5eX8/X/pie2Rxe9KFS1Fw6TIMr1Bu5SfmasGDBNtoBaB6GBX2cmU0I9L3c79JdhvQ2C/gYwmHBQhJKjyzH9VLK8+M1OV5gBCwXMOSpMHG+Rol/XKlUSaS8+GI5XmAomDz+yGRDLKURYbCoxsriKApfI8em+vXWkLd/ML/JArWQC6iFKg0gIPdYUPny0xpn40V7dRgodlA5nT7qkfKAmvDFFIEDine1tP6ITkS/FWbKHVhnWTUvk3hOLh+uZZNdDFrvCoyMvwgTG68esDi5UK1Eo6Sh76T9yu/FAfZaaG5jlIvcJnp8DEeWgkWe5cF+QIDAQAB",
+   "manifest_version": 3,
+   "name": "MetaBot for Twitter",
+   "permissions": [ "storage", "alarms" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.7.13",
+   "web_accessible_resources": [ {
+      "matches": [ "https://*.twitter.com/*" ],
+      "resources": [ "assets/labels.json", "common_impex.js" ]
+   } ]
+}
