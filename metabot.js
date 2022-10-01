@@ -24,32 +24,37 @@ const bots = {
 	get botsCount () {
 		return this.IDs.length
 	},
-	posts: [],
+	posts: {},
 	showBotsList () {
 		let modal = document.querySelector('[id="bots-list"]')
 		if (!modal) {
 			const iconStyles = 'width: 20px; height: 20px; fill: currentColor;'
-			
+
+			document.querySelector('#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010').style.filter = 'blur(20px)'
+			document.querySelector('#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010').setAttribute('aria-hidden', true)
+			document.querySelector('html').style.overflow = 'hidden'
+
 			modal = document.createElement('div')
 			modal.setAttribute('id', 'bots-list')
-			modal.setAttribute('tab-index', '10')
-			modal.style = 'display: flex; justify-content: center; align-items: center; position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; background-color: rgba(91, 112, 131, 0.4); color: white; font-color: white;'
+			//modal.setAttribute('tab-index', '10')
+			modal.style = `z-index: 10; display: flex; justify-content: center; align-items: center; position: fixed; top: 0px; left: 0px; bottom: 0px; right: 0px; color: currentColor; font-color: currentColor; height: 100vh; width: 100vw; overflow-y: visible;`
+			document.querySelector('body').style.backgroundColor === 'rgb(255, 255, 255)' ? modal.style.backgroundColor = 'rgba(0, 0, 0, 0.4)' : modal.style.backgroundColor = 'rgba(91, 112, 131, 0.4)'
 			document.querySelector('[id="layers"]').appendChild(modal)
 
 			let modalWindow = document.createElement('div')
-			modalWindow.style = 'display: flex; flex-direction: column; padding: 10px; height: auto; min-width: 300px; width: auto; border-radius: 10px;'
+			modalWindow.style = `background-color: ${document.querySelector('body').style.backgroundColor}; display: flex; flex-direction: column; padding: 10px; height: auto; border-radius: 10px; max-height: 100vh; overflow-y: visible; width: max-content; max-width: 600px;`
 				+'font: 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;'
 			modalWindow.classList.add('r-yfoy6g')
 			modal.appendChild(modalWindow)
 
 			let styles = document.createElement('style')
 			styles.innerText = `a:hover {
-				color: white;
+				color: currentColor;
 				max-width: fit-content;
 				transition: color 100ms ease-in;
 			}
 			button:hover {
-				color: white;
+				color: currentColor;
 				background-color: rgba(255, 255, 255, 0.1) !important;
 				max-width: fit-content;
 				border-radius: 1em;
@@ -60,18 +65,30 @@ const bots = {
 				max-width: fit-content;
 				text-decoration: none;
 				transition: color 100ms ease-in;
+			}
+			.posts {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				overflow-y: scroll;
+				overflow-x: overlay;
+				width: 100%;
+				height: auto;
 			}`
 			modalWindow.appendChild(styles)
 
+			let textColorClass = document.querySelector('body').style.backgroundColor === 'rgb(255, 255, 255)' ? 'r-18jsvk2' : 'r-vlxjld'
+
 			let modalHeader = document.createElement('div')
-			modalHeader.setAttribute('id', 'bots-list-header')
-			modalHeader.innerHTML = `<h2 style="flex-grow: 10; padding-left: 2em; padding-right: 2em;">Bots ${this.botsCount}. Replies ${this.posts.length}</h2>`
+			modalHeader.classList.add(textColorClass)
+			modalHeader.innerHTML = `<span style="flex-grow: 10; padding-left: 2em; padding-right: 2em;"><h2>Bots ${this.botsCount}. Replies ${Object.keys(this.posts).length}</h2></span>`
 			modalHeader.style = 'display: flex;'
 			modalWindow.appendChild(modalHeader)
 
 			let closeButton = document.createElement('button')
 			closeButton.setAttribute('type', 'button')
 			closeButton.setAttribute('id', 'close-bots-list')
+			modalHeader.classList.add(textColorClass)
 			closeButton.innerHTML = '<svg viewBox="0 0 24 24" style="'+iconStyles+'" aria-hidden="true"><g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g></svg>'
 			closeButton.style = 'flex-grow: 1; top: 5px; right: 5px; cursor: pointer; background: none; outline: none; border: none; align-self: self-start;'
 			closeButton.color = 'rgb(239, 243, 244)'
@@ -82,27 +99,26 @@ const bots = {
 			modalHeader.appendChild(closeButton)
 
 			let modalContent = document.createElement('div')
-			let twitterWidgetFrame = document.createElement('div')
-			modalContent.appendChild(twitterWidgetFrame)
-			this.posts.map(postUrl => {
-				let post = document.createElement('blockquote')
-				post.classList.add('twitter-tweet')
-				post.setAttribute('data-conversation', 'none')
-				let anchor = document.createElement('a')
-				anchor.setAttribute('href', postUrl)
-				post.appendChild(anchor)
-				twitterWidgetFrame.appendChild(post)
-			})
-			let twitterWidgetScript = document.createElement('script')
-			twitterWidgetScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
-			twitterWidgetScript.setAttribute('crossorigin', 'anonymous')
-			twitterWidgetScript.setAttribute('charset', 'utf-8')
-			document.head.appendChild(twitterWidgetScript)
+			modalContent.classList.add('r-18jsvk2')
+			modalContent.classList.add('r-vlxjld')
+			modalContent.classList.add('posts')
+			if (Object.keys(this.posts).length > 0) {
+				Object.values(this.posts).map(HTMLElement => {
+					let post = document.createElement('article')
+					post.innerHTML = HTMLElement.innerHTML
+					post.querySelector('[role="group"]').remove()
+					modalContent.appendChild(post)
+				})
+			} else modalContent.innerHTML = '<span><h2>Ничего нет...</h2></span>'
 			modalWindow.appendChild(modalContent)
 		}
 	},
 	hideBotsList () {
 		let modal = document.querySelector('[id="bots-list"]')
+		document.querySelector('#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010').style.filter = 'blur(0px)'
+		document.querySelector('html').style.overflow = 'auto scroll'
+		
+		document.querySelector('#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010').setAttribute('aria-hidden', false)
 		if (modal) modal.remove()
 	},
 	injectBotsCounter () {
@@ -131,25 +147,29 @@ const bots = {
 			this.botsUpdated()
 		}
 	},
-	addPost (text) {
-		this.posts.push(text)
+	addPost (HTMLElement) {
+		if (this.IDs.includes(HTMLElement.querySelector('a').href)) {
+			let replieLinkEl = HTMLElement.querySelector('div.css-1dbjc4n.r-18u37iz.r-1wbh5a2.r-13hce6t > div > div.css-1dbjc4n.r-18u37iz.r-1q142lx > a[href]')
+			if (replieLinkEl) this.posts[replieLinkEl.href] = HTMLElement // div.css-1dbjc4n.r-18u37iz.r-1wbh5a2.r-13hce6t > div > div.css-1dbjc4n.r-18u37iz.r-1q142lx > a
+		}
 	}
 }
 
 /* для тестов */
+/*
 bots.IDs = [
 	'bot1',
 	'bot2',
 	'bot3',
 	'bot4',
-	'bot5']
-bots.posts = [
+	'bot5']*/
+/*bots.posts = [
 	'https://twitter.com/Interior/status/463440424141459456',
 	'https://twitter.com/prof_preobr/status/1535954350098489346',
 	'https://twitter.com/R1ght_Now/status/1535955343116836866',
 	'https://twitter.com/Be_idjnejnd/status/1536027792642646022?s=20&t=yigy6ZrMn7MUHu3-n-rX6Q',
 	'https://twitter.com/Roman_Levadnyj/status/1536209601816928256?s=20&t=yigy6ZrMn7MUHu3-n-rX6Q'
-]
+]*/
 /* ================= */
 
 window.addEventListener('load', function () {
@@ -344,7 +364,7 @@ function markTweets()
 					if ((isRed || isYellow) && highlight_tweets)
 					{
 						label=isRed?"БОТ:" :isYellow?"⚠️":""
-					
+						
 						// highlight all tweets shown on the page
 						botCaption = document.createElement("span")
 						botCaption.innerHTML=label+"&nbsp;"
@@ -352,11 +372,13 @@ function markTweets()
 
 						// дописываем "БОТ: " перед именем автора твита
 						fullname=t.querySelector("span")
-
+						
 						fullname.prepend(botCaption)
 						
 						elementToHighlight = t.parentNode
 
+						bots.addBot(t.querySelector('a[href]').href)
+						bots.addPost(t)
 						//// "Highlight tweets only if they are not retweeted-by,
 						//// no matter who retweeted or who posted the original tweet."
 						////
@@ -383,8 +405,7 @@ function markTweets()
 							.innerText=="" ))
 						{
 							// let text = t.childNodes[0].innerText()
-							// bots.addPost(text)
-							bots.addBot(x)
+
 							// подсвечиваем весь твит стилем bot_tweet_highlight
 							elementToHighlight.className+=" bot_tweet_highlight"
 
