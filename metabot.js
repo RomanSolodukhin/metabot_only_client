@@ -73,8 +73,10 @@ const bots = {
 				overflow-y: scroll;
 				overflow-x: overlay;
 				width: 100%;
-				padding-top: 5vh;
-				padding-bottom: 2vh;
+				padding-left: 5px;
+				padding: right: 8px;
+				padding-top: 15px;
+				padding-bottom: 5px;
 			}`
 			modalWindow.appendChild(styles)
 
@@ -106,8 +108,7 @@ const bots = {
 			if (Object.keys(this.posts).length > 0) {
 				Object.values(this.posts).map(HTMLElement => {
 					let post = document.createElement('article')
-					post.innerHTML = HTMLElement.innerHTML
-					post.querySelector('[role="group"]').remove()
+					post.innerHTML = HTMLElement.querySelector('div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu').innerHTML
 					modalContent.appendChild(post)
 				})
 			} else modalContent.innerHTML = '<span><h2>Ничего нет...</h2></span>'
