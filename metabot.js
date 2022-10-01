@@ -73,10 +73,10 @@ const bots = {
 				overflow-y: scroll;
 				overflow-x: overlay;
 				width: 100%;
-				padding-left: 5px;
-				padding: right: 8px;
-				padding-top: 15px;
-				padding-bottom: 5px;
+				padding-left: 1em;
+				padding-right: 2em;
+				padding-top: 1em;
+				padding-bottom: 1em;
 			}
 			::-webkit-scrollbar {
 				display: none;
@@ -100,7 +100,7 @@ const bots = {
 			closeButton.setAttribute('id', 'close-bots-list')
 			modalHeader.classList.add(textColorClass)
 			closeButton.innerHTML = '<svg viewBox="0 0 24 24" style="'+iconStyles+'" aria-hidden="true"><g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g></svg>'
-			closeButton.style = 'flex-grow: 1; top: 5px; right: 5px; cursor: pointer; background: none; outline: none; border: none; align-self: self-start;'
+			closeButton.style = 'flex-grow: 1; top: 1em; right: 1em; cursor: pointer; background: none; outline: none; border: none; align-self: self-start;'
 			closeButton.color = 'rgb(239, 243, 244)'
 
 			closeButton.addEventListener('click', () => {
