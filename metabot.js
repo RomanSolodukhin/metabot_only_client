@@ -73,7 +73,8 @@ const bots = {
 				overflow-y: scroll;
 				overflow-x: overlay;
 				width: 100%;
-				height: auto;
+				padding-top: 5vh;
+				padding-bottom: 2vh;
 			}`
 			modalWindow.appendChild(styles)
 
@@ -139,7 +140,7 @@ const bots = {
 	},
 	botsUpdated () {
 		let botsCounter = document.querySelector('[id="bots-counter"]')
-		botsCounter.innerText = this.botsCount
+		if (botsCounter) botsCounter.innerText = this.botsCount
 	},
 	addBot (id) {
 		if (!this.IDs.includes(id)) {
@@ -154,23 +155,6 @@ const bots = {
 		}
 	}
 }
-
-/* для тестов */
-/*
-bots.IDs = [
-	'bot1',
-	'bot2',
-	'bot3',
-	'bot4',
-	'bot5']*/
-/*bots.posts = [
-	'https://twitter.com/Interior/status/463440424141459456',
-	'https://twitter.com/prof_preobr/status/1535954350098489346',
-	'https://twitter.com/R1ght_Now/status/1535955343116836866',
-	'https://twitter.com/Be_idjnejnd/status/1536027792642646022?s=20&t=yigy6ZrMn7MUHu3-n-rX6Q',
-	'https://twitter.com/Roman_Levadnyj/status/1536209601816928256?s=20&t=yigy6ZrMn7MUHu3-n-rX6Q'
-]*/
-/* ================= */
 
 window.addEventListener('load', function () {
 	let botsCounter = new injectionManager(bots.injectBotsCounter, bots)
