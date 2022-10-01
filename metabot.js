@@ -77,6 +77,13 @@ const bots = {
 				padding: right: 8px;
 				padding-top: 15px;
 				padding-bottom: 5px;
+			}
+			::-webkit-scrollbar {
+				display: none;
+			}
+			div {
+				-ms-overflow-style: none;  /* IE и Edge */
+				scrollbar-width: none;  /* Firefox */
 			}`
 			modalWindow.appendChild(styles)
 
@@ -109,6 +116,8 @@ const bots = {
 				Object.values(this.posts).map(HTMLElement => {
 					let post = document.createElement('article')
 					post.innerHTML = HTMLElement.querySelector('div > div > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu').innerHTML
+					post.querySelector('[role="group"]').remove()
+					post.style.paddingBottom = '2em'
 					modalContent.appendChild(post)
 				})
 			} else modalContent.innerHTML = '<span><h2>Ничего нет...</h2></span>'
